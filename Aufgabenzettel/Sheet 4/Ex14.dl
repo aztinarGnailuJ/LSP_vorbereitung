@@ -1,0 +1,28 @@
+route(r1, n2, r2, 1).
+route(r1, n2, r3, 15).
+route(r1, n3, r2, 6).
+route(r1, n3, r3, 10).
+route(r1, n4, r2, 8).
+route(r1, n4, r3, 12).
+
+route(r2, n3, r1, 11).
+route(r2, n3, r3, 5).
+route(r2, n4, r1, 13).
+route(r2, n4, r3, 7).
+
+route(r3, n1, r1, 10).
+route(r3, n1, r2, 6).
+route(r3, n2, r1, 11).
+route(r3, n2, r2, 5).
+route(r3, n4, r4, 2).
+
+% This does not work apparently, therefore we could not test our results for task b).
+% Why does it select for all "Router2" and not for the minimum variable?
+% The second route call would work, if "Min" would be given by the min predicate.
+cheapest_route(Router1, Network, Router2) :- 
+    min(route(Router1, Network, Router2, Cost), Cost, Min), route(Router1, Network, Router2, Min).
+
+%no_of_hops(Router1, Network, No-Of-Hops):-
+%    cheapest_route(Router1, Network, Router2),
+%    No_Of_hops is Old_no_of_Hops +1,
+%    no_of_hops(router2,network,old_no_of_hops).
