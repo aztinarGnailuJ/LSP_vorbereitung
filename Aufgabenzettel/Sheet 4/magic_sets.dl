@@ -1,0 +1,9 @@
+friends(ted, alice).
+friends(ted, bob).
+friends(bob, peggy).
+friends(peggy, oscar).
+friends(oscar, ted).
+friends(oscar, walter).
+friends(eve, walter).
+social_net(X, Y) :- friends(X, Y).
+social_net(X, Y) :- friends(X, Z), social_net(Z, Y).

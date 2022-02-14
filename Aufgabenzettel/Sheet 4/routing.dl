@@ -1,0 +1,25 @@
+route(r1, n2, r2, 1).
+route(r1, n2, r3, 15).
+route(r1, n3, r2, 6).
+route(r1, n3, r3, 10).
+route(r1, n4, r2, 8).
+route(r1, n4, r3, 12).
+
+route(r2, n3, r1, 11).
+route(r2, n3, r3, 5).
+route(r2, n4, r1, 13).
+route(r2, n4, r3, 7).
+
+route(r3, n1, r1, 10).
+route(r3, n1, r2, 6).
+route(r3, n2, r1, 11).
+route(r3, n2, r2, 5).
+route(r3, n4, r4, 2).
+
+cheapest_route(Router1, Network, Router2) :-
+    min(route(Router1, Network, _, Cost), Cost, Min), route(Router1, Network, Router2, Min).
+
+routers_required(R, N, H) :- cheapest_route(R, N, H).
+routers_required(R, N, H) :- cheapest_route(R, N, H1),routers_required(H1, N, H).
+
+no_of_hops(Router, Network, Hops) :- group_by(routers_required(Router,Network, _), [Router,Network], Hops = count).
