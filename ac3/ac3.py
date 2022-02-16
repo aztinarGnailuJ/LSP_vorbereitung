@@ -6,7 +6,7 @@ def mod(x,y):
     try:
         return x % y
     except:
-        return 1
+        return 30000
 
 # DomainsStart = {
 #     'x' : [0,1,2,3,4,5,6],
@@ -45,42 +45,63 @@ def mod(x,y):
 #     ('y','x') : lambda y,x : x+y == 4
 #     }
 
-DomainsStart = {
-    'x' : [0,1,2],
-    'y' : [0,1,2],
-    'z' : [0,1,2]
-    }
+# DomainsStart = {
+#     'x' : [0,1,2],
+#     'y' : [0,1,2],
+#     'z' : [0,1,2]
+#     }
+
+# Domains = {
+#     'x' : [],
+#     'y' : [],
+#     'z' : []
+#     }
+
+# Constraints = {
+#     ('x','y') : lambda x,y : x < y,
+#     ('y','x') : lambda y,x : x < y,
+#     ('z','y') : lambda z,y : y < z,
+#     ('y','z') : lambda y,z : y < z
+#     }
 
 Domains = {
-    'x' : [],
-    'y' : [],
-    'z' : []
+    'x' : [1,2,3,4],
+    'y' : [-2,-1,1,2],
+    'z' : [3,5,9]
     }
+
+# Domains = {
+#     'x' : [],
+#     'y' : [],
+#     'z' : []
+#     }
 
 Constraints = {
-    ('x','y') : lambda x,y : x < y,
-    ('y','x') : lambda y,x : x < y,
-    ('z','y') : lambda z,y : y < z,
-    ('y','z') : lambda y,z : y < z
-    }
+    ('x','y') : lambda x,y : x-y == 2,
+    ('y','x') : lambda y,x : x-y == 2,
+    ('y','z') : lambda y,z : mod(z+y,2) == 1,
+    ('z','y') : lambda z,y : mod(z+y,2) == 1
+}
+
+
 
 # clean the Domains by constraint
-for constraint in Constraints:
-    a,b = constraint
-    c = Constraints[constraint]
-    print(a,b)
-    for value1 in DomainsStart[a]:
-        exists = False
-        for value2 in DomainsStart[b]:
-            if c(value1,value2):
-                exists = True
-                print((value1,value2))
-            else:
-                continue
-        if exists and value1 not in Domains[a]:
-            Domains[a].append(value1)
-        else:
-            continue
+# for constraint in Constraints:
+#     a,b = constraint
+#     c = Constraints[constraint]
+#     print(a,b)
+#     for value1 in DomainsStart[a]:
+#         exists = False
+#         for value2 in DomainsStart[b]:
+#             if c(value1,value2):
+#                 exists = True
+#                 print((value1,value2))
+#             else:
+#                 continue
+#         if exists and value1 not in Domains[a]:
+#             Domains[a].append(value1)
+#         else:
+#             continue
 
 workpool = list(Constraints.keys())
 vars = list(Domains.keys())
